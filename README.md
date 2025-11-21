@@ -49,32 +49,31 @@ pip install -r requirements.txt
 复制并编辑`.env`文件，填写必要的配置信息：
 
 ```bash
-cp .env.example .env # 若存在
+cp .env.example .env 
 ```
 
 编辑`.env`文件，配置以下内容：
 
 ```
 ### 企微配置 ###
-export Token='your_token_here'
-export EncodingAESKey='your_encoding_aes_key_here'
-export corpid='your_corpid_here'  # 企业id
-export secret='your_secret_here'
-export prikey_path='/path/to/prikey.pem'
+export Token=''# 智能机器人token
+export EncodingAESKey=''# 智能机器人加密key
+export corpid='' # 企业id
+export secret='' # 生成密钥
+export prikey_path = './src/utils/WeComFinanceSdk_python/prikey.pem' # 密钥放这个路径
 ### 企微配置 ###
 
 ### 大模型配置 ###
-export llm_url='your_llm_api_url'
-export llm_name='your_model_name'
-export llm_key='your_llm_api_key'
+export llm_url='https://api.deepseek.com/v1' # 支持openai接口的都可以
+export llm_name='deepseek-reasoner'
+export llm_key='sk-****************'
 ### 大模型配置 ###
 
-### 知识库与数据库配置 ###
-export dify_url='your_knowledge_base_api_url'
-export dify_DBkey='your_knowledge_base_api_key'
-export db_url='postgresql+psycopg2://username:password@host:port/dbname'
-export db_list='["knowledge_base_id_1", "knowledge_base_id_2"]'
-### 知识库与数据库配置 ###
+### dify知识库与数据库配置 ###
+export dify_url='https://xxx.xxx.com/v1' # 你的dify域名
+export db_url='postgresql+psycopg2://****************' # 你的数据库链接，项目使用postsql，你可以自己修改
+export dify_key='app-************* # dify聊天流调用key
+### dify知识库与数据库配置 ###
 
 ### 端口配置 ###
 export port=3456
@@ -149,5 +148,6 @@ python run.py
 tail -f wecom_Bot/log/WeComBot.log
 ```
 ### 环境变量更新
+
 
 修改`.env`文件后，需要重启服务：
