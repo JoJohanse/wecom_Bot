@@ -1,0 +1,520 @@
+app:
+  description: 正式环境，请勿修改
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 企微机器人
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: package
+  value:
+    plugin_unique_identifier: langgenius/ollama:0.0.7@8fc496b3892344da47db6125c76fc0dbfd8020753f198032751d83f561d9443e
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.47@c6d9e43800aee0a9b71940310d320b8dd2214f98a725f8c8d79442aa5842dc77
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.7@c4e7b999ae67bfc059f6f51630bed36def5a835d12b0251694f5784b5ff1cd95
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 5000
+        batch_count_limit: 10
+        file_size_limit: 1500
+        image_file_size_limit: 1500
+        video_file_size_limit: 15000
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1762928426774-source-1762928438216-target
+      source: '1762928426774'
+      sourceHandle: source
+      target: '1762928438216'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1762934680713-source-1762934739137-target
+      source: '1762934680713'
+      sourceHandle: source
+      target: '1762934739137'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1762928438216-c67c3947-8a73-4dfa-a241-6e529a59f322-1762934680713-target
+      source: '1762928438216'
+      sourceHandle: c67c3947-8a73-4dfa-a241-6e529a59f322
+      target: '1762934680713'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1762928438216-910615c6-e250-4e18-9020-4938a574c95e-1762928464032-target
+      source: '1762928438216'
+      sourceHandle: 910615c6-e250-4e18-9020-4938a574c95e
+      target: '1762928464032'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: if-else
+      id: 1762928464032-source-1763023840442-target
+      source: '1762928464032'
+      sourceHandle: source
+      target: '1763023840442'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1763023840442-true-llm-target
+      source: '1763023840442'
+      sourceHandle: 'true'
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1763023840442-false-1763023874035-target
+      source: '1763023840442'
+      sourceHandle: 'false'
+      target: '1763023874035'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1763023874035-source-1763023899138-target
+      source: '1763023874035'
+      sourceHandle: source
+      target: '1763023899138'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: RAG
+          hint: ''
+          label: intention
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: intention
+      height: 87
+      id: '1762928426774'
+      position:
+        x: 80
+        y: 280.6804920892271
+      positionAbsolute:
+        x: 80
+        y: 280.6804920892271
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1762928464032'
+          - result
+        model:
+          completion_params:
+            num_ctx: 4096
+            repeat_penalty: 1.2
+            temperature: 0.5
+            top_k: 20
+          mode: chat
+          name: qwen3:235b-a22b-instruct-2507-q4_K_M
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 787e971b-11a7-4b81-bbc9-747dc5d8dec9
+          role: system
+          text: '你是一个XXXXXX ##你的提示词
+
+            知识库查询结果：{{#context#}}'
+        reasoning_format: tagged
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 93
+      id: llm
+      position:
+        x: 1588.344588420974
+        y: 646.4362311316393
+      positionAbsolute:
+        x: 1588.344588420974
+        y: 646.4362311316393
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#llm.text#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 102
+      id: answer
+      position:
+        x: 2045.5912357135696
+        y: 626.9495554182191
+      positionAbsolute:
+        x: 2045.5912357135696
+        y: 626.9495554182191
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: c67c3947-8a73-4dfa-a241-6e529a59f322
+          conditions:
+          - comparison_operator: is
+            id: 5cfda5bd-0474-4e72-b3b9-0d02f1d4e810
+            value: Summarize
+            varType: string
+            variable_selector:
+            - '1762928426774'
+            - intention
+          id: c67c3947-8a73-4dfa-a241-6e529a59f322
+          logical_operator: and
+        - case_id: 910615c6-e250-4e18-9020-4938a574c95e
+          conditions:
+          - comparison_operator: is
+            id: 5bb84e35-8226-47d6-9b78-5901a00629a7
+            value: RAG
+            varType: string
+            variable_selector:
+            - '1762928426774'
+            - intention
+          id: 910615c6-e250-4e18-9020-4938a574c95e
+          logical_operator: and
+        selected: false
+        title: 意图识别
+        type: if-else
+      height: 171
+      id: '1762928438216'
+      position:
+        x: 413.2826012187403
+        y: 320.9999999999999
+      positionAbsolute:
+        x: 413.2826012187403
+        y: 320.9999999999999
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - TZbiddxHe4QkKfm/87xnSmSVwbTDOPYIDDj+Novv/nfVN9ybM4nRrLFoB9qB4JH4
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank-v2
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.8
+          top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0.3
+            vector_setting:
+              embedding_model_name: bge-m3:latest
+              embedding_provider_name: langgenius/ollama/ollama
+              vector_weight: 0.7
+        query_variable_selector:
+        - '1762928426774'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 89
+      id: '1762928464032'
+      position:
+        x: 838.8696117098638
+        y: 646.4362311316393
+      positionAbsolute:
+        x: 838.8696117098638
+        y: 646.4362311316393
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-reasoner
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: fab8ead5-80f8-429b-b08e-af2808d23633
+          role: system
+          text: 你是一个专业的群聊消息总结助手。请根据用户提供的群消息记录，总结出群聊主要讨论内容。
+        - id: baec32f5-d958-4b7a-9956-1bc002456140
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1762934680713'
+      position:
+        x: 874.6650267791688
+        y: 326.1891341867478
+      positionAbsolute:
+        x: 874.6650267791688
+        y: 326.1891341867478
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1762934680713.text#}}'
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 102
+      id: '1762934739137'
+      position:
+        x: 1495.220695062284
+        y: 339.02322911602215
+      positionAbsolute:
+        x: 1495.220695062284
+        y: 339.02322911602215
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        author: Shen Junran
+        desc: ''
+        height: 125
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":1,"mode":"normal","style":"font-size:
+          16px;","text":"1.dify工作流处理企微后台传入的查询，生成回答后返回；","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":1,"textStyle":"font-size:
+          16px;"},{"children":[{"detail":0,"format":1,"mode":"normal","style":"font-size:
+          16px;","text":"2.功能选择由传入的intention字段来判断；","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":1,"textStyle":"font-size:
+          16px;"},{"children":[{"detail":0,"format":1,"mode":"normal","style":"font-size:
+          16px;","text":"3.与wecom_Bot配合运行。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":1,"textStyle":"font-size:
+          16px;"}],"direction":"ltr","format":"","indent":0,"type":"root","version":1,"textFormat":1,"textStyle":"font-size:
+          16px;"}}'
+        theme: yellow
+        title: ''
+        type: ''
+        width: 497
+      height: 125
+      id: '1762996617677'
+      position:
+        x: 80
+        y: 26.973003846406414
+      positionAbsolute:
+        x: 80
+        y: 26.973003846406414
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 497
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 106db84d-327e-4f88-8c13-47543525f428
+            value: ''
+            varType: array[object]
+            variable_selector:
+            - '1762928464032'
+            - result
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支 2
+        type: if-else
+      height: 123
+      id: '1763023840442'
+      position:
+        x: 1169.0791612494052
+        y: 761.7704987025469
+      positionAbsolute:
+        x: 1169.0791612494052
+        y: 761.7704987025469
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params:
+            num_ctx: 4096
+            temperature: 0.7
+          mode: chat
+          name: qwen3:235b-a22b-instruct-2507-q4_K_M
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 13530ab6-2fa8-4891-8bec-a707bc57c886
+          role: system
+          text: '你是一个医疗SPD系统软件智能助手，姓名“米小度”，属于江苏米度网络有限公司。
+
+            1.如果用户问题与[角色主题]直接相关，严格以[角色名称]的视角回答，使用相关术语和示例。
+
+            2.如果问题超出[角色主题]（例如：涉及其他领域如历史或计算机网络），请忽略角色设定，切换到你的通用知识回答：诚实、全面、基于事实，并简要说明“这个话题超出我的角色范围，我将用一般知识解释”。
+
+            3.始终保持响应友好，避免拒绝问题。
+
+            用户问题：{{#context#}}'
+        selected: false
+        title: LLM 3
+        type: llm
+        vision:
+          enabled: false
+      height: 93
+      id: '1763023874035'
+      position:
+        x: 1565.3834553632362
+        y: 969.4793847779911
+      positionAbsolute:
+        x: 1565.3834553632362
+        y: 969.4793847779911
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763023874035.text#}}'
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 102
+      id: '1763023899138'
+      position:
+        x: 1867.3834553632362
+        y: 969.4793847779911
+      positionAbsolute:
+        x: 1867.3834553632362
+        y: 969.4793847779911
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -121.01453333043219
+      y: -49.04969678175769
+      zoom: 0.574349177498518
+  rag_pipeline_variables: []
