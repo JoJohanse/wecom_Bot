@@ -133,8 +133,8 @@ python run.py
 
 ### 日志文件
 
-- 应用日志：`/home/sjr/wecom_Bot/log/WeComBot.log` # logger = logging.getLogger('WeComBot')
-- 服务日志：`/home/sjr/wecom_Bot/log/server.log` # nohup python run.py > wecom_Bot/log/server.log 2>&1 &
+- 应用日志：`../wecom_Bot/log/WeComBot.log` # logger = logging.getLogger('WeComBot')
+- 服务日志：`../wecom_Bot/log/server.log` # nohup python run.py > wecom_Bot/log/server.log 2>&1 &
 
 ### 查看日志
 
@@ -145,5 +145,6 @@ tail -f wecom_Bot/log/WeComBot.log
 
 
 修改`.env`文件后，需要重启服务：
+
 
 
