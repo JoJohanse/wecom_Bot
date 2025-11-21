@@ -84,9 +84,6 @@ dependencies:
       - gevent==25.9.1
       - gunicorn==23.0.0
       - jiter==0.11.1
-      - langchain-core==1.0.1
-      - langchain-ollama==1.0.0
-      - langchain-openai==1.0.1
       - naked==0.1.32
       - numpy==2.3.4
       - ollama==0.6.0
@@ -103,4 +100,5 @@ dependencies:
       - tzlocal==5.3.1
       - zope-event==6.0
       - zope-interface==8.0.1
-prefix: /home/sjr/miniconda3/envs/wecom_bot
+prefix: ../wecom_bot
+
